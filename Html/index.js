@@ -40,6 +40,7 @@ function refresh(response) {
   iconChange(iconid);
   formatdate(date);
   wheatherData(response);
+  getforecast(response.data.name);
 }
 function searchCity(city) {
   let apikey = "a4d1ffe2f22e7da134fe0f4895a8bed3";
@@ -54,7 +55,13 @@ function SearchSubmit(event) {
 
 let formBtn = document.querySelector(".search-form");
 formBtn.addEventListener("submit", SearchSubmit);
-function displayforecast() {
+
+function getforecast(city) {
+  let apikey = "a4d1ffe2f22e7da134fe0f4895a8bed3";
+  apiurl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}&units=metric`;
+  axios.get(apiurl).then(displayforecast);
+}
+function displayforecast(response) {
   let forecastElement = document.querySelector(".weather-forecast");
   let days = ["Tus", "wed", "thu", "Fri", "sat"];
   let forecast = "";
@@ -75,4 +82,4 @@ function displayforecast() {
   });
   forecastElement.innerHTML = forecast;
 }
-displayforecast();
+getforecast("paris");

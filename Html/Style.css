@@ -19,7 +19,7 @@ header {
 }
 .search-form-input {
   background-color: #f9f7fe;
-  width: 75%;
+  width: 80%;
   border: none;
   border-radius: 6px;
   font-size: 16px;
@@ -57,8 +57,8 @@ main {
   font-weight: 500;
 }
 .wf-icon {
-  font-size: 28px;
-  margin-top: 7px;
+  font-size: 24px;
+  margin-top: 5px;
 }
 .wf-tempratures {
   display: flex;
@@ -66,7 +66,7 @@ main {
   color: #f65282;
   font-weight: 500;
   font-size: 16px;
-  margin-top: 7px;
+  margin-top: 5px;
 }
 .wf-temp {
   padding: 10px;
