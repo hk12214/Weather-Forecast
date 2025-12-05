@@ -46,8 +46,10 @@ main {
 }
 .weather-forecast {
   text-align: center;
+  display: flex;
+  justify-content: space-around;
 }
-.wf-day {
+.wf-date {
   font-size: 20px;
   color: rgba(39, 33, 66, 0.4);
   line-height: 24px;
