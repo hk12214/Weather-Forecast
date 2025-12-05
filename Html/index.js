@@ -54,3 +54,25 @@ function SearchSubmit(event) {
 
 let formBtn = document.querySelector(".search-form");
 formBtn.addEventListener("submit", SearchSubmit);
+function displayforecast() {
+  let forecastElement = document.querySelector(".weather-forecast");
+  let days = ["Tus", "wed", "thu", "Fri", "sat"];
+  let forecast = "";
+  days.forEach(function (day) {
+    forecast =
+      forecast +
+      ` <div class="wf-days">
+            <div class="wf-date">${day}</div>
+            <div class="wf-icon">
+              <img
+                src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/rain-day.png"
+              />
+            </div>
+            <div class="wf-tempratures">
+              <div class="wf-temp"><strong>14º</strong></div>
+              <div class="wf-temp">2º</div>
+            </div></div>`;
+  });
+  forecastElement.innerHTML = forecast;
+}
+displayforecast();
