@@ -67,34 +67,54 @@ function displayforecast(response) {
   let forecastElement = document.querySelector(".weather-forecast");
   let list = response.data.list;
 
-  let days = list.filter((item) => item.dt_txt.includes("12:00:00"));
-
+  let dailyData = {};
   let dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  let forecast = "";
 
-  days.forEach((day) => {
-    let date = new Date(day.dt_txt);
-    let dayName = dayNames[date.getDay()];
+  // Group data by date and calculate daily max/min
+  list.forEach((item) => {
+    let date = item.dt_txt.split(" ")[0]; // YYYY-MM-DD
 
-    let tempMax = Math.round(day.main.temp_max);
-    let tempMin = Math.round(day.main.temp_min);
-    let iconId = day.weather[0].icon;
-
-    forecast += `
-      <div class="wf-days">
-        <div class="wf-date">${dayName}</div>
-        <img 
-          src="https://openweathermap.org/img/wn/${iconId}@2x.png"
-          class="wf-icon"
-        />
-        <div class="wf-tempratures">
-          <div class="wf-temp"><strong>${tempMax}º</strong></div>
-          <div class="wf-temp">${tempMin}º</div>
-        </div>
-      </div>`;
+    if (!dailyData[date]) {
+      dailyData[date] = {
+        max: item.main.temp_max,
+        min: item.main.temp_min,
+        icon: item.weather[0].icon,
+        dt_txt: item.dt_txt,
+      };
+    } else {
+      dailyData[date].max = Math.max(dailyData[date].max, item.main.temp_max);
+      dailyData[date].min = Math.min(dailyData[date].min, item.main.temp_min);
+    }
   });
 
-  forecastElement.innerHTML = forecast;
+  // Build HTML (first 5 days only)
+  let forecastHTML = "";
+
+  Object.values(dailyData)
+    .slice(0, 5)
+    .forEach((day) => {
+      let date = new Date(day.dt_txt);
+      let dayName = dayNames[date.getDay()];
+
+      forecastHTML += `
+      <div class="wf-days">
+        <div class="wf-date">${dayName}</div>
+        <div>
+          <img 
+            src="https://openweathermap.org/img/wn/${day.icon}@2x.png"
+            class="wf-icon"
+          />
+        </div>
+        <div class="wf-tempratures">
+          <div class="wf-temp"><strong>${Math.round(day.max)}°</strong></div>
+          <div class="wf-temp">${Math.round(day.min)}°</div>
+        </div>
+      </div>
+    `;
+    });
+
+  forecastElement.innerHTML = forecastHTML;
 }
+
 searchCity("paris");
 getforecast("paris");
