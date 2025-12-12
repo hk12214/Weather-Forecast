@@ -1,6 +1,7 @@
 function refresh(response) {
   let iconid = response.data.weather[0].icon;
   let date = new Date((response.data.timezone + response.data.dt) * 1000);
+
   function formatdate(date) {
     let days = [
       "Sunday",
@@ -58,28 +59,42 @@ formBtn.addEventListener("submit", SearchSubmit);
 
 function getforecast(city) {
   let apikey = "a4d1ffe2f22e7da134fe0f4895a8bed3";
-  apiurl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}&units=metric`;
+  apiurl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apikey}&units=metric`;
+
   axios.get(apiurl).then(displayforecast);
 }
 function displayforecast(response) {
   let forecastElement = document.querySelector(".weather-forecast");
-  let days = ["Tus", "wed", "thu", "Fri", "sat"];
+  let list = response.data.list;
+
+  let days = list.filter((item) => item.dt_txt.includes("12:00:00"));
+
+  let dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let forecast = "";
-  days.forEach(function (day) {
-    forecast =
-      forecast +
-      ` <div class="wf-days">
-            <div class="wf-date">${day}</div>
-            <div class="wf-icon">
-              <img
-                src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/rain-day.png"
-              />
-            </div>
-            <div class="wf-tempratures">
-              <div class="wf-temp"><strong>14º</strong></div>
-              <div class="wf-temp">2º</div>
-            </div></div>`;
+
+  days.forEach((day) => {
+    let date = new Date(day.dt_txt);
+    let dayName = dayNames[date.getDay()];
+
+    let tempMax = Math.round(day.main.temp_max);
+    let tempMin = Math.round(day.main.temp_min);
+    let iconId = day.weather[0].icon;
+
+    forecast += `
+      <div class="wf-days">
+        <div class="wf-date">${dayName}</div>
+        <img 
+          src="https://openweathermap.org/img/wn/${iconId}@2x.png"
+          class="wf-icon"
+        />
+        <div class="wf-tempratures">
+          <div class="wf-temp"><strong>${tempMax}º</strong></div>
+          <div class="wf-temp">${tempMin}º</div>
+        </div>
+      </div>`;
   });
+
   forecastElement.innerHTML = forecast;
 }
+searchCity("paris");
 getforecast("paris");

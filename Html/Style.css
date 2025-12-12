@@ -57,8 +57,10 @@ main {
   font-weight: 500;
 }
 .wf-icon {
-  font-size: 24px;
-  margin-top: 5px;
+  width: 88px;
+  height: 88px;
+  display: block;
+  margin: 0 auto;
 }
 .wf-tempratures {
   display: flex;
@@ -66,7 +68,6 @@ main {
   color: #f65282;
   font-weight: 500;
   font-size: 16px;
-  margin-top: 5px;
 }
 .wf-temp {
   padding: 10px;
