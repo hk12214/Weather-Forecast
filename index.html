@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>weather app</title>
+    <title>weather Forecast</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="src/Style.css" />
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
   </head>
   <body>
@@ -25,23 +25,30 @@
         </form>
       </header>
       <main>
-        <div>
-          <h1 class="city">Paris</h1>
-          <p class="weather-app-details">
-            <span id="currentDate">Tuesday 14:49</span>,
-            <span id="weather">scattered clouds</span>
+        <div class="weather-data">
+          <div>
+            <h1 class="city">Paris</h1>
+            <p class="weather-app-details">
+              <span id="currentDate">Tuesday 14:49</span>,
+              <span id="weather">scattered clouds</span>
 
-            <br />
-            Humidity: <strong><span id="humidity">66%</span></strong
-            >, Wind:
-            <strong><span id="wind">3.13km/h</span></strong>
-          </p>
+              <br />
+              Humidity: <strong><span id="humidity">66%</span></strong
+              >, Wind:
+              <strong><span id="wind">3.13km/h</span></strong>
+            </p>
+          </div>
+          <div class="weather-app-temperature-container">
+            <div class="weather-app-icon">
+              <img
+                src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/rain-day.png"
+              />
+            </div>
+            <div class="weather-app-temperature">12</div>
+            <div class="weatehr-app-unit">ºC</div>
+          </div>
         </div>
-        <div class="weather-app-temperature-container">
-          <div class="weather-app-icon">🌤️</div>
-          <div class="weather-app-temperature">12</div>
-          <div class="weatehr-app-unit">°C</div>
-        </div>
+        <div class="weather-forecast"></div>
       </main>
 
       <footer>
@@ -52,7 +59,10 @@
           >Helen kb</a
         >
         , is open-sourced
-        <a href="https://github.com/hk12214/my-first-project " target="_blank">
+        <a
+          href="https://github.com/hk12214/Weather-Forecast.git "
+          target="_blank"
+        >
           on Github
         </a>
         and hosted
@@ -61,6 +71,6 @@
         >
       </footer>
     </div>
-    <script src="index.js"></script>
+    <script src="src/index.js"></script>
   </body>
 </html>
